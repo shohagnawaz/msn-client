@@ -9,13 +9,13 @@ import bannerImage6 from "../../../assets/home/banner/banner6.jpg";
 
 const Banner = () => {
   return (
-    <Carousel autoPlay={true} infiniteLoop={true}>
-        <div><img src={bannerImage} /></div>
-        <div><img src={bannerImage2} /></div>
-        <div><img src={bannerImage3} /></div>
-        <div><img src={bannerImage4} /></div>
-        <div><img src={bannerImage5} /></div>
-        <div><img src={bannerImage6} /></div>
+    <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false} interval={1000}>
+        <div><img className="w-full h-[700px] object-cover" src={bannerImage} /></div>
+        <div><img className="w-full h-[700px] object-cover" src={bannerImage2} /></div>
+        <div><img className="w-full h-[700px] object-cover" src={bannerImage3} /></div>
+        <div><img className="w-full h-[700px] object-cover" src={bannerImage4} /></div>
+        <div><img className="w-full h-[700px] object-cover" src={bannerImage5} /></div>
+        <div><img className="w-full h-[700px] object-cover" src={bannerImage6} /></div>
     </Carousel>
   );
 };
