@@ -17,7 +17,7 @@ const ClientLogoBrand = () => {
             <div className="mx-auto px-2">
                 <h2 className="text-2xl font-bold text-center mb-6">Trusted by Leading Brands</h2>
 
-                <Marquee>
+                <Marquee pauseOnHover>
                     {
                         logos.map((logo, index) => (
                             <div key={index} className="mx-24 flex items-center">
