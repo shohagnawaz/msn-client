@@ -6,13 +6,16 @@ import { router } from './router/router'
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import AuthProvider from './context/AuthContext/AuthProvider'
 
 AOS.init();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className='max-w-screen'>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </div>
   </StrictMode>,
 )
