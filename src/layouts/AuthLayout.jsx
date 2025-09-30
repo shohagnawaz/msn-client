@@ -9,7 +9,7 @@ const AuthLayout = () => {
         <div>
             <MsnLogo></MsnLogo>
         </div>
-      <div className="hero-content flex-col lg:flex-row-reverse">
+      <div className="hero-content flex-col sm:flex-1 lg:flex-row-reverse">
         <div className="flex-1">
             <img src={loginImage} className="max-w-sm rounded-lg shadow-2xl" />
         </div>
