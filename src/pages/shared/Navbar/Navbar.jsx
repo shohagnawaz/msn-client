@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import MsnLogo from "../MsnLogo/MsnLogo";
 
 const Navbar = () => {
@@ -6,7 +6,7 @@ const Navbar = () => {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
         <li><NavLink to="/contact">Contact</NavLink></li>
-        <li><NavLink to="/login">Login</NavLink></li>
+        <li><NavLink to="/addInfo">Add Info</NavLink></li>
     </>
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -46,7 +46,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <Link className="btn btn-primary" to="/login">Login</Link>
       </div>
     </div>
   );

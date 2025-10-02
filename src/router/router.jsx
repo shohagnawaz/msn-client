@@ -6,6 +6,8 @@ import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
 import Contact from "../pages/Contact/Contact";
 import About from "../pages/About/About";
+import PrivateRoutes from '../routes/PrivateRoutes';
+import AddInfo from "../pages/AddInfo/AddInfo";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ export const router = createBrowserRouter([
         {
             path: "contact",
             Component: Contact
+        },
+        {
+            path: "addInfo",
+            element: <PrivateRoutes><AddInfo></AddInfo></PrivateRoutes>
         }
     ]
   },
