@@ -8,6 +8,8 @@ import Contact from "../pages/Contact/Contact";
 import About from "../pages/About/About";
 import PrivateRoutes from '../routes/PrivateRoutes';
 import AddInfo from "../pages/AddInfo/AddInfo";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyInfo from "../pages/Dashboard/MyInfo/MyInfo";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +45,16 @@ export const router = createBrowserRouter([
       {
           path: "register",
           Component: Register
+      }
+    ]
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+    children: [
+      {
+        path: "myInfo",
+        Component: MyInfo
       }
     ]
   }

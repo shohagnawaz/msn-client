@@ -1,12 +1,19 @@
 import { Link, NavLink } from "react-router";
 import MsnLogo from "../MsnLogo/MsnLogo";
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
+    const { user } = useAuth();
     const navItems = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
         <li><NavLink to="/contact">Contact</NavLink></li>
         <li><NavLink to="/addInfo">Add Info</NavLink></li>
+        {
+          user && <>
+            <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+          </>
+        }
     </>
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -36,9 +43,9 @@ const Navbar = () => {
             { navItems }
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <Link className="btn btn-ghost text-xl">
             <MsnLogo></MsnLogo>
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
