@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const MyInfo = () => {
   const { user } = useAuth();
@@ -14,11 +15,30 @@ const MyInfo = () => {
   });
 
   const handleDelete = async (id) => {
-    try {
-      await axiosSecure.delete(`/infos/${id}`);
-      refetch(); // refresh table after delete
-    } catch (error) {
-      console.error("Delete failed:", error);
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "This info will be permanently deleted",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#e11d48", // red-600
+      cancelButtonColor: "#6b7280", // gray-800
+    });
+    if (confirm.isConfirmed) {
+      axiosSecure.delete(`/infos/${id}`)
+      .then((res) => {
+        if (res.data.deletedCount) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Info has been deleted.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }
+        refetch();
+      });
     }
   };
 
@@ -34,7 +54,7 @@ const MyInfo = () => {
             <th>Phone</th>
             <th>Street</th>
             <th>City</th>
-            <th>State</th>
+            <th>District</th>
             <th>Zip</th>
             <th>About</th>
             <th>Category</th>
@@ -51,7 +71,7 @@ const MyInfo = () => {
               <td>{info.phone}</td>
               <td>{info.street}</td>
               <td>{info.city}</td>
-              <td>{info.state}</td>
+              <td>{info.district}</td>
               <td>{info.zip}</td>
               <td>{info.about}</td>
               <td>{info.category}</td>

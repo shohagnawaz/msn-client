@@ -106,9 +106,9 @@ const AddInfo = () => {
             />
             <input
               type="text"
-              placeholder="State"
+              placeholder="District"
               className="input input-bordered w-full"
-              {...register("state")}
+              {...register("district")}
             />
             <input
               type="text"

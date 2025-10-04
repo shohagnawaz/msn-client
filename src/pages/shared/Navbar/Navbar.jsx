@@ -3,7 +3,14 @@ import MsnLogo from "../MsnLogo/MsnLogo";
 import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
+
+    const handleLogOut = () => {
+      logout()
+        .then( result => {console.log(result)})
+        .catch(error => {console.log(error)})
+    }
+
     const navItems = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
@@ -53,7 +60,10 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link className="btn btn-primary" to="/login">Login</Link>
+        {user ?
+          <button onClick={handleLogOut} className="btn btn-primary">Log Out</button>
+            :
+          <Link className="btn btn-primary" to="/login">Login</Link>}
       </div>
     </div>
   );
