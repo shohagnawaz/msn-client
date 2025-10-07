@@ -1,5 +1,7 @@
-import { Link, NavLink, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import MsnLogo from "../pages/shared/MsnLogo/MsnLogo";
+import { FaHome } from "react-icons/fa";
+import { FaCircleInfo } from "react-icons/fa6";
 
 const DashboardLayout = () => {
   return (
@@ -46,8 +48,10 @@ const DashboardLayout = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
           <MsnLogo></MsnLogo>
-          <li><Link to="/">Home</Link></li>
-          <li><NavLink to="/dashboard/myInfo">My Info</NavLink></li>
+          <li>
+            <NavLink to="/"><FaHome />Home</NavLink>
+          </li>
+          <li><NavLink to="/dashboard/myInfo"><FaCircleInfo />My Info</NavLink></li>
         </ul>
       </div>
     </div>
