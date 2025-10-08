@@ -21,6 +21,7 @@ const Navbar = () => {
             <li><NavLink to="/dashboard">Dashboard</NavLink></li>
           </>
         }
+        <li><NavLink to="/beAMember">Be A Member</NavLink></li>
     </>
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -50,9 +51,9 @@ const Navbar = () => {
             { navItems }
           </ul>
         </div>
-        <Link className="btn btn-ghost text-xl">
+        <span className="btn btn-ghost text-xl">
             <MsnLogo></MsnLogo>
-        </Link>
+        </span>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">

@@ -10,6 +10,7 @@ import PrivateRoutes from '../routes/PrivateRoutes';
 import AddInfo from "../pages/AddInfo/AddInfo";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyInfo from "../pages/Dashboard/MyInfo/MyInfo";
+import BeAMember from "../pages/Dashboard/BeAMember/BeAMember";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
         {
             path: "contact",
             Component: Contact
+        },
+        {
+            path: "beAMember",
+            element: <PrivateRoutes><BeAMember></BeAMember></PrivateRoutes>
         },
         {
             path: "addInfo",
