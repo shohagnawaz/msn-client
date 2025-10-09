@@ -1,19 +1,34 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth"; // your existing hook
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const BeAMember = () => {
   const { user } = useAuth(); // e.g. { displayName, email }
+  const { register, handleSubmit, reset, formState: { errors }} = useForm();
+  const axiosSecure = useAxiosSecure();  
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const onSubmit = async (data) => {
+    const memberData = {
+      ...data,
+      name: user?.displayName || "",
+      email: user?.email || "",
+      status: "pending",
+      created_at: new Date().toISOString()
+    };
+    console.log("Membership Form Data:", memberData);
 
-  const onSubmit = (data) => {
-    console.log("Membership Form Data:", data);
     // 👉 Send to backend API here
+    axiosSecure.post("/members", memberData)
+      .then(res => {
+        if(res.data.insertedId){
+           Swal.fire({
+            icon: "success",
+            title: "Application Submitted!",
+            text: "Your application is pending approval."
+          });
+        }
+      });    
     reset();
   };
 
@@ -28,7 +43,7 @@ const BeAMember = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-base-100 p-6"
       >
         {/* Name */}
         <div className="form-control">
@@ -154,10 +169,10 @@ const BeAMember = () => {
         </div>
 
         {/* Submit Button (Full width) */}
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-2 text-center">
           <button
             type="submit"
-            className="btn btn-primary w-full mt-2 text-lg tracking-wide"
+            className="btn btn-primary mt-2 text-lg tracking-wide"
           >
             Submit Application
           </button>

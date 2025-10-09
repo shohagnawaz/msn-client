@@ -11,6 +11,8 @@ import AddInfo from "../pages/AddInfo/AddInfo";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyInfo from "../pages/Dashboard/MyInfo/MyInfo";
 import BeAMember from "../pages/Dashboard/BeAMember/BeAMember";
+import PendingMembers from "../pages/Dashboard/PendingMembers/PendingMembers";
+import ActiveMembers from "../pages/Dashboard/ActiveMembers/ActiveMembers";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +62,14 @@ export const router = createBrowserRouter([
       {
         path: "myInfo",
         Component: MyInfo
+      },
+      {
+        path: "pendingMembers",
+        Component: PendingMembers
+      },
+      {
+        path: "activeMembers",
+        Component: ActiveMembers
       }
     ]
   }

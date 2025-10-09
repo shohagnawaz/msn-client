@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router";
 import MsnLogo from "../pages/shared/MsnLogo/MsnLogo";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUserClock, FaUsers } from "react-icons/fa";
 import { FaCircleInfo } from "react-icons/fa6";
 
 const DashboardLayout = () => {
@@ -37,7 +37,6 @@ const DashboardLayout = () => {
         {/* Page content here */}
         <Outlet></Outlet>
         {/* Page content here */}
-
       </div>
       <div className="drawer-side">
         <label
@@ -49,9 +48,29 @@ const DashboardLayout = () => {
           {/* Sidebar content here */}
           <MsnLogo></MsnLogo>
           <li>
-            <NavLink to="/"><FaHome />Home</NavLink>
+            <NavLink to="/">
+              <FaHome />
+              Home
+            </NavLink>
           </li>
-          <li><NavLink to="/dashboard/myInfo"><FaCircleInfo />My Info</NavLink></li>
+          <li>
+            <NavLink to="/dashboard/myInfo">
+              <FaCircleInfo />
+              My Info
+            </NavLink>
+          </li>
+
+          {/* members link */}
+          <li>
+            <NavLink to="/dashboard/activeMembers">
+              <FaUsers /> Active Members
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/pendingMembers">
+              <FaUserClock /> Pending Members
+            </NavLink>
+          </li>
         </ul>
       </div>
     </div>
