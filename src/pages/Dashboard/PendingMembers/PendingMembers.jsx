@@ -18,7 +18,7 @@ const PendingMembers = () => {
   });
 
   // Handle approve/cancel
-  const handleAction = async (member, action) => {
+  const handleAction = async (member, action, email) => {
     const confirm = await Swal.fire({
       title: `Are you sure you want to ${action} this application?`,
       icon: "question",
@@ -29,9 +29,10 @@ const PendingMembers = () => {
 
     if (confirm.isConfirmed) {
       try {
-        const res = await axiosSecure.patch(`/members/${member._id}`,
+        const status = action === "approve" ? "active" : "cancelled";
+        const res = await axiosSecure.patch(`/members/${member._id}`,          
           {
-            status: action === "approve" ? "active" : "cancelled",
+            status, email 
           }
         );
 
@@ -115,13 +116,13 @@ const PendingMembers = () => {
 
             <div className="modal-action flex justify-between mt-4">
               <button
-                onClick={() => handleAction(selectedMember, "approve")}
+                onClick={() => handleAction(selectedMember, "approve", selectedMember.email)}
                 className="btn btn-success btn-sm"
               >
                 Approve
               </button>
               <button
-                onClick={() => handleAction(selectedMember, "cancel")}
+                onClick={() => handleAction(selectedMember, "cancel", selectedMember.email)}
                 className="btn btn-error btn-sm"
               >
                 Cancel
