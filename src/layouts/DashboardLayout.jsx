@@ -1,9 +1,13 @@
 import { NavLink, Outlet } from "react-router";
 import MsnLogo from "../pages/shared/MsnLogo/MsnLogo";
-import { FaHome, FaUserClock, FaUsers } from "react-icons/fa";
+import { FaHome, FaUserClock, FaUsers, FaUserShield } from "react-icons/fa";
 import { FaCircleInfo } from "react-icons/fa6";
+import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayout = () => {
+  const { role, roleLoading } = useUserRole();
+  console.log(role);
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -54,23 +58,63 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/myInfo">
+            <NavLink
+              to="/dashboard/myInfo"
+              className={({ isActive }) =>
+                `flex items-center gap-2 p-2 rounded-lg transition-colors duration-200 ${
+                  isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                }`
+              }
+            >
               <FaCircleInfo />
               My Info
             </NavLink>
           </li>
 
-          {/* members link */}
-          <li>
-            <NavLink to="/dashboard/activeMembers">
-              <FaUsers /> Active Members
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/pendingMembers">
-              <FaUserClock /> Pending Members
-            </NavLink>
-          </li>
+          {/* admin route */}
+          { !roleLoading && role === "admin" &&
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/makeAdmin"
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 p-2 rounded-lg transition-colors duration-200 ${
+                      isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                    }`
+                  }
+                >
+                  <FaUserShield size={18} />
+                  <span>Make Admin</span>
+                </NavLink>
+              </li>
+
+              {/* members link */}
+              <li>
+                <NavLink
+                  to="/dashboard/activeMembers"
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 p-2 rounded-lg transition-colors duration-200 ${
+                      isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                    }`
+                  }
+                >
+                  <FaUsers /> Active Members
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/pendingMembers"
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 p-2 rounded-lg transition-colors duration-200 ${
+                      isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                    }`
+                  }
+                >
+                  <FaUserClock /> Pending Members
+                </NavLink>
+              </li>
+            </>
+          }
         </ul>
       </div>
     </div>

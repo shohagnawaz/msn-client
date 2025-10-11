@@ -13,6 +13,9 @@ import MyInfo from "../pages/Dashboard/MyInfo/MyInfo";
 import BeAMember from "../pages/Dashboard/BeAMember/BeAMember";
 import PendingMembers from "../pages/Dashboard/PendingMembers/PendingMembers";
 import ActiveMembers from "../pages/Dashboard/ActiveMembers/ActiveMembers";
+import MakeAdmin from "../pages/Dashboard/MakeAdmin/MakeAdmin";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import AdminRoutes from "../routes/AdminRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +33,10 @@ export const router = createBrowserRouter([
         {
             path: "contact",
             Component: Contact
+        },
+        {
+            path: "forbidden",
+            Component: Forbidden
         },
         {
             path: "beAMember",
@@ -70,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "activeMembers",
         Component: ActiveMembers
+      },
+      {
+        path: "makeAdmin",
+        element: <AdminRoutes><MakeAdmin></MakeAdmin></AdminRoutes>
       }
     ]
   }
