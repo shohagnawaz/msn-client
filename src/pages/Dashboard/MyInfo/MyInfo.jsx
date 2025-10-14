@@ -7,9 +7,9 @@ const MyInfo = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: infos = [], refetch } = useQuery({
-    queryKey: ["my-infos", user.email],
+    queryKey: ["my-infos", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/infos?.email=${user.email}`);
+      const res = await axiosSecure.get(`/infos?email=${user.email}`);
       return res.data;
     },
   });
