@@ -6,7 +6,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const PendingMembers = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const queryClient = useQueryClient();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   // Load pending members using TanStack Query
   const { data: pendingMembers = [], isLoading } = useQuery({
@@ -18,7 +18,7 @@ const PendingMembers = () => {
   });
 
   // Handle approve/cancel
-  const handleAction = async (member, action, email) => {
+  const handleAction = async (id, action, email) => {
     const confirm = await Swal.fire({
       title: `Are you sure you want to ${action} this application?`,
       icon: "question",
@@ -27,23 +27,21 @@ const PendingMembers = () => {
       cancelButtonText: "Cancel",
     });
 
-    if (confirm.isConfirmed) {
-      try {
-        const status = action === "approve" ? "active" : "cancelled";
-        const res = await axiosSecure.patch(`/members/${member._id}`,          
-          {
-            status, email 
-          }
-        );
+    if (!confirm.isConfirmed) return;
+    try {
+      const status = action === "approve" ? "active" : "cancelled";
+      const res = await axiosSecure.patch(`/members/${id}/status`, {
+        status,
+        email,
+      });
 
-        if (res.data.modifiedCount > 0) {
-          Swal.fire("Success", `Application ${action}d successfully!`, "success");
-          setSelectedMember(null);
-          queryClient.invalidateQueries(["pendingMembers"]); // refresh data
-        }
-      } catch (error) {
-        Swal.fire("Error", "Something went wrong!", error);
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Success", `Application ${action}d successfully!`, "success");
+        setSelectedMember(null);
+        queryClient.invalidateQueries(["pendingMembers"]); // refresh data
       }
+    } catch (error) {
+      Swal.fire("Error", "Something went wrong!", error);
     }
   };
 
@@ -53,7 +51,9 @@ const PendingMembers = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Pending Members</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">
+        Pending Members
+      </h2>
 
       {/* Table */}
       <div className="overflow-x-auto">
@@ -105,24 +105,42 @@ const PendingMembers = () => {
           <div className="modal-box">
             <h3 className="font-bold text-lg mb-2">{selectedMember.name}</h3>
             <div className="space-y-1 text-sm">
-              <p><b>Email:</b> {selectedMember.email}</p>
-              <p><b>Phone:</b> {selectedMember.phone}</p>
-              <p><b>Age:</b> {selectedMember.age}</p>
-              <p><b>Region:</b> {selectedMember.region}</p>
-              <p><b>District:</b> {selectedMember.district}</p>
-              <p><b>NID:</b> {selectedMember.nid}</p>
-              <p><b>Status:</b> {selectedMember.status}</p>
+              <p>
+                <b>Email:</b> {selectedMember.email}
+              </p>
+              <p>
+                <b>Phone:</b> {selectedMember.phone}
+              </p>
+              <p>
+                <b>Age:</b> {selectedMember.age}
+              </p>
+              <p>
+                <b>Region:</b> {selectedMember.region}
+              </p>
+              <p>
+                <b>District:</b> {selectedMember.district}
+              </p>
+              <p>
+                <b>NID:</b> {selectedMember.nid}
+              </p>
+              <p>
+                <b>Status:</b> {selectedMember.status}
+              </p>
             </div>
 
             <div className="modal-action flex justify-between mt-4">
               <button
-                onClick={() => handleAction(selectedMember, "approve", selectedMember.email)}
+                onClick={() =>
+                  handleAction(selectedMember, "approve", selectedMember.email)
+                }
                 className="btn btn-success btn-sm"
               >
                 Approve
               </button>
               <button
-                onClick={() => handleAction(selectedMember, "cancel", selectedMember.email)}
+                onClick={() =>
+                  handleAction(selectedMember, "cancel", selectedMember.email)
+                }
                 className="btn btn-error btn-sm"
               >
                 Cancel
